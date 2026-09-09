@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#3a3a3a" />
+  <meta name="description" content="KuoRem — free Minecraft-themed AI background remover. Upload an image, get a transparent PNG back. No sign-up, no API keys, 100% server-side." />
+  <title>KuoRem — Minecrafy BG Remover</title>
+
+  <!-- Preload fonts -->
+  <link rel="preload" href="/static/fonts/Minecraftia.woff" as="font" type="font/woff" crossorigin />
+  <link rel="preload" href="/static/fonts/Minecraft.woff" as="font" type="font/woff" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2379C05C'/%3E%3Crect width='16' height='4' fill='%2379C05C'/%3E%3Crect y='4' width='16' height='4' fill='%238B6043'/%3E%3Crect y='8' width='16' height='8' fill='%23634F33'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Sky + ground backdrop -->
+  <div class="world">
+    <div class="sky"></div>
+    <div class="clouds"></div>
+    <div class="ground"></div>
+  </div>
+
+  <!-- Main content -->
+  <main class="container">
+    <header class="title-bar">
+      <div class="logo-block">
+        <div class="grass-icon" aria-hidden="true"></div>
+        <h1 class="logo">KuoRem</h1>
+      </div>
+      <p class="tagline">Remove background. Craft clean PNGs. <span class="hint">No sign-up.</span></p>
+    </header>
+
+    <!-- Drop zone / inventory slot -->
+    <section class="upload-card" id="uploadCard" aria-label="Image uploader">
+      <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/bmp" hidden />
+
+      <!-- Empty state -->
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Tap to select an image">
+        <div class="slot-frame">
+          <div class="slot-inner">
+            <div class="slot-plus">+</div>
+            <div class="slot-label">Drop Image</div>
+            <div class="slot-sub">or tap to browse</div>
+          </div>
+        </div>
+        <div class="upload-meta">PNG · JPG · WebP · up to 12MB</div>
+      </div>
+
+      <!-- Processing state -->
+      <div class="processing" id="processing" hidden>
+        <div class="spinner-blocks">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span>
+        </div>
+        <div class="proc-text" id="procText">Smelting image...</div>
+        <div class="proc-bar"><div class="proc-bar-fill" id="procBarFill"></div></div>
+      </div>
+
+      <!-- Result state -->
+      <div class="result" id="result" hidden>
+        <div class="compare">
+          <div class="panel">
+            <div class="panel-label">Original</div>
+            <div class="panel-img" id="origImg"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-label">No Background</div>
+            <div class="panel-img checker" id="outImg"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action bar -->
+    <section class="actions" id="actions" hidden>
+      <button class="mc-btn" id="downloadBtn" type="button">
+        <span class="mc-btn-icon">⬇</span> Download PNG
+      </button>
+      <button class="mc-btn mc-btn-secondary" id="againBtn" type="button">
+        <span class="mc-btn-icon">↻</span> Another
+      </button>
+    </section>
+
+    <!-- Status / errors -->
+    <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
+
+    <footer class="footer">
+      <p>Built with <span class="heart">♥</span> using <strong>ISNet</strong> · <strong>Express</strong> · <strong>EJS</strong>. Runs free on Render.</p>
+      <p class="footer-small">Your image is processed on the server and never stored. The result is returned directly to your browser.</p>
+    </footer>
+  </main>
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>
