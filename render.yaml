@@ -1,0 +1,23 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Free-tier web service. KuoRem runs as a long-lived Node process.
+# Model (~85MB) downloads on first cold start, then cached on disk.
+
+services:
+  - type: web
+    name: kuorem
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
